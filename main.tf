@@ -37,15 +37,21 @@ data "aws_iam_policy_document" "ec2_assume_role" {
 }
 
 resource "aws_iam_role" "this" {
-  name               = "ec2-assume-role"
+  for_each = { for policy in local.policies : policy.name => policy }
+
+  name               = "${each.value.name}-role"
   assume_role_policy = data.aws_iam_policy_document.ec2_assume_role.json
+  path = "${each.value.path}"
+
+  tags   = local.common_tags
 }
 
 resource "aws_iam_role_policy_attachment" "this" {
-  role       = aws_iam_role.role.name
-  policy_arn = aws_iam_policy.policy.arn
-}
+  for_each = { for policy in local.policies : policy.name => policy }
 
+  role       = aws_iam_role.this["${each.value.name}"].name
+  policy_arn = aws_iam_policy.this["${each.value.name}"].arn
+}
 
 
 resource "aws_iam_group" "this" {
