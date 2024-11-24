@@ -2,12 +2,12 @@
 Module to create IAM user, IAM role, user & user group
 
 - Define iam role in json.tpl file
-- json.tpl file should be in the format of 
+- json.tpl file should be in below
 ```
 [
     {
-        "name": "networking-admins",
-        "path": "/terraform/networking/admins/users/",
+        "name": "<policy-name>",
+        "path": "/<<policy-path>/",
         "policy_statement": {}
     }
 ]
