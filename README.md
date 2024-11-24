@@ -7,7 +7,7 @@ Module to create IAM user, IAM role, user & user group
 [
     {
         "name": "<policy-name>",
-        "path": "/<<policy-path>/",
+        "path": "/<directory path for users>/",
         "policy_statement": {}
     }
 ]
